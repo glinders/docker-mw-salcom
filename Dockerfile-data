@@ -1,0 +1,11 @@
+# Use the same image as the service
+# This way we don't use any additional disk space
+# and the volumes are already defined
+ARG SERVICE_IMAGE
+FROM ${SERVICE_IMAGE}
+
+# ensure all files are owned by www-data
+# this takes very long; several minutes
+RUN chown -R www-data:www-data /var/www /backup /restore
+
+

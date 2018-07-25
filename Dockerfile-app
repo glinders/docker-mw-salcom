@@ -1,0 +1,25 @@
+FROM mediawiki:1.31.0
+ENV DEBIAN_FRONTEND noninteractive
+RUN apt-get update
+RUN apt-get install -y tzdata
+
+# make editing configuration files a bit easier
+RUN apt-get install -y nano
+
+# our configuration, our logo and favicon
+ADD LocalSettings.php /var/www/html/LocalSettings.php
+ADD s5_logo_mw.png /var/www/html/s5_logo_mw.png
+ADD favicon.ico /var/www/html/favicon.ico
+# prepopulated database
+ADD data /var/www/data
+# added support for some text files
+ADD mime.types /var/www/html/includes/libs/mime/mime.types
+
+# hack our timezone; should not be needed though
+RUN ln -fs /usr/share/zoneinfo/Pacific/Auckland /etc/localtime
+RUN dpkg-reconfigure -f noninteractive tzdata
+
+# here we keep our backups
+RUN mkdir /backup
+# here we restore from
+RUN mkdir /restore
