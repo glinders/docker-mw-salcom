@@ -4,4 +4,5 @@
 chown -R www-data:www-data /restore
 # restore backup in directory /restore to directory /var/www
 # name of archive is mw-salcom
-./tar-restore /restore /var/www mw-salcom
+cd /
+/tar-restore /restore /var/www mw-salcom

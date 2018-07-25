@@ -1,6 +1,7 @@
 #!/bin/bash
 
-# backup directory . in /var/www; name it 'mw-salcom'
-./tar-backup mw-salcom /var/www .
+# backup selected directories and files in /var/www; name it 'mw-salcom'
+cd /
+/tar-backup mw-salcom /var/www data html/images
 # fix owner
 chown -R www-data:www-data /backup
